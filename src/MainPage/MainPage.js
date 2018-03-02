@@ -1,13 +1,13 @@
 import React from 'react';
 import { suggestions } from '../data/data';
+import Tags from '../Tags/tags';
 
 class MainPage extends React.Component {
 
-    c
     render = () => {
         return <div>
             Hi
-            {suggestions}
+            <Tags />
         </div>
     }
 }
