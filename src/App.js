@@ -8,8 +8,13 @@ import { socketConnect } from 'socket.io-react';
 
 class App extends React.Component {
 
+  constructor() {
+    super();
+    this.sendMessage = this.sendMessage.bind(this);
+  }
+
   sendMessage = () => {
-    this.props.socket.emit('message', 'Hello world from hackergames');
+    this.props.socket.emit('chat message', 'Hello world from hackergames');
   }
 
   render = () => {
