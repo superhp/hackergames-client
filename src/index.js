@@ -6,7 +6,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { SocketProvider } from 'socket.io-react';
 import io from 'socket.io-client';
 
-var serverUrl = "http://localhost:1337"
+var serverUrl = process.env['api_url'] | "http://localhost:1337";
+console.log(process.env['api_url']);
 const socket = io.connect(serverUrl);
 socket.on('message', msg => console.log(msg));
  
