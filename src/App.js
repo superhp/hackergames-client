@@ -5,6 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { socketConnect } from 'socket.io-react';
+import MainPage from './MainPage/mainPage';
 
 class App extends React.Component {
 
@@ -20,6 +21,7 @@ class App extends React.Component {
   render = () => {
     return <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
       <AppBar title="Learn from me" showMenuIconButton={ false } iconElementRight={ <FlatButton label="Home" /> } />
+      <MainPage />
       <button onClick={this.sendMessage}>
          Send msg to socket.io
          </button>
