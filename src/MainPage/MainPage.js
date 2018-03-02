@@ -1,13 +1,20 @@
 import React from 'react';
-import { suggestions } from '../data/data';
 import Tags from '../Tags/tags';
 
 class MainPage extends React.Component {
 
+    constructor() {
+        super();
+    }
+
+    handleTagsChange = (tags) => {
+        console.log(tags);
+    }
+
     render = () => {
         return <div>
             Hi
-            <Tags />
+            <Tags updateTags={this.handleTagsChange}/>
         </div>
     }
 }

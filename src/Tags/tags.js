@@ -21,6 +21,9 @@ class Tags extends React.Component {
         let tags = this.state.tags;
         tags.splice(i, 1);
         this.setState({tags: tags});
+
+        let tagNames = this.state.tags.map(x => x.text);
+        this.props.updateTags(tagNames);
     }
 
     handleAddition(tag) {
@@ -30,6 +33,9 @@ class Tags extends React.Component {
             text: tag
         });
         this.setState({tags: tags});
+        
+        let tagNames = this.state.tags.map(x => x.text);
+        this.props.updateTags(tagNames);
     }
 
     handleDrag(tag, currPos, newPos) {
