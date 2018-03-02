@@ -6,9 +6,10 @@ import registerServiceWorker from './registerServiceWorker';
 import { SocketProvider } from 'socket.io-react';
 import io from 'socket.io-client';
 
-console.log(process.env)
-var serverUrl = process.env['api_url'] || "http://localhost:1337";
-console.log(process.env['api_url']);
+var serverUrl = process.env.NODE_ENV === "production" ?
+"https://hg-api.azurewebsites.net" :
+"http://localhost:1337";
+
 const socket = io.connect(serverUrl);
 socket.on('chat message', msg => console.log(msg));
  
