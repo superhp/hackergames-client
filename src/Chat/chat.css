@@ -15,5 +15,9 @@
   }
 
   a.close-thik {
-      margin-top: 7px;
+      margin-top: 11px;
+  }
+
+  div.talk-box-header {
+      background: rgb(0, 188, 212) !important;
   }
