@@ -60,9 +60,19 @@ class MainPage extends React.Component {
     }
 
     render = () => {
-        return <div>
-            <Tags updateTags={this.handleTagsChange} users={this.state.users} />
-            <Mentors tableData={this.state.filteredUsers}/>
+        return <div className="row">
+            <div className="col-lg-8 col-lg-offset-2">
+                <div>
+                    <h1 className="bottom-margin-0">Interests</h1>
+                    <span>The things you somehow forgot.</span>
+                    <Tags updateTags={this.handleTagsChange} users={this.state.users} />
+                </div>
+                <div>
+                    <h1 className="bottom-margin-0">Mentors</h1>
+                    <span>People who are willing to share.</span>
+                    <Mentors tableData={this.state.filteredUsers} selectedTags={this.state.tags}/>
+                </div>
+            </div>
         </div>
     }
 }
