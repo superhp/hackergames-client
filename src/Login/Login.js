@@ -37,14 +37,18 @@ class Login extends React.Component {
         this.setState({
             username: data[0].user_id
         })
-        this.register();
+        //this.register();
     }
 
     register() {
         console.log(this.state);
         this.props.service.register({
             name: this.state.username,
-            tags: []
+            tags: this.state.tags.map(t => new Object({
+                name: t,
+                rating: 0,
+                ratingCount: 0
+            }))
         });
 
         this.props.onLogin(this.state.username);
