@@ -46,7 +46,7 @@ class Chat extends React.Component {
             <div className="chat-body">
                 <div className="row">
                     <div className="col-sm-6 pull-left">
-                        <h3>  Talking to {this.state.receiver.name}</h3>
+                        <h3> Talking to {this.state.receiver.name}</h3>
                     </div>
                     <div className="col-sm-6 pull-right">
                         <h5/><FlatButton className="pull-right" label="Finish" primary={true} onClick={this.props.onClose} />
