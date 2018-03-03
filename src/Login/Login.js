@@ -25,6 +25,12 @@ class Login extends React.Component {
             console.log(activeUsers);
             this.setState({users: activeUsers});
         });
+
+        fetch("https://learnfromme.azurewebsites.net/.auth/me", {
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => console.log(data));
     }
 
     register() {
@@ -60,6 +66,8 @@ class Login extends React.Component {
                 <Tags updateTags={this.handleTagsChange} users={this.state.users} />
 
                 <RaisedButton className="register-button" label="JOIN" onClick={this.register} primary={true} />
+
+                <a className='ui facebook fluid button cg-login-button' href={"https://learnfromme.azurewebsites.net/.auth/login/facebook?post_login_redirect_url=/"}>Login with Facebook</a>
             </div>
         </Paper>
       );
