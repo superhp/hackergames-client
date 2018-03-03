@@ -51,3 +51,12 @@
 .bottom-margin-0 {
   margin-bottom: 0px;
 }
+
+.rating {
+  color: white;
+  margin: 5px;
+}
+
+.rating-star {
+  font-size: 12px !important;
+}

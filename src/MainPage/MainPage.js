@@ -32,7 +32,7 @@ class MainPage extends React.Component {
         } else {
             let usersFilteredByTag = this.state.users.filter(user => {
                 let intersectingTags = tags.filter(tag => {
-                    return user.tags.indexOf(tag) !== -1;
+                    return user.tags.map(t => t.name).indexOf(tag) !== -1;
                 });
                 return intersectingTags.length !== 0;
             });
@@ -55,7 +55,8 @@ class MainPage extends React.Component {
     }
 
     hasTags(user, tags) {
-        var found = user.tags.filter(t => tags.indexOf(t) > -1);
+        var tagNames = tags.map(t => t.name);
+        var found = user.tags.filter(t => tagNames.indexOf(t) > -1);
         return found.length;
     }
 

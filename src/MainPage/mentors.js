@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import appStyles from '../App.css';
+import FontIcon from 'material-ui/FontIcon';
+import {yellow500} from 'material-ui/styles/colors';
 
 const styles = {
   propContainer: {
@@ -12,7 +14,6 @@ const styles = {
     margin: '20px auto 10px',
   },
 };
-
 
 /**
  * A more complex example, allowing the table height to be set, and key boolean properties to be toggled.
@@ -59,7 +60,6 @@ export default class Mentors extends Component {
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>Tags</TableHeaderColumn>
-              <TableHeaderColumn>Rating</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
@@ -72,9 +72,8 @@ export default class Mentors extends Component {
               <TableRow key={index}>
                 <TableRowColumn>{row.name}</TableRowColumn>
                 <TableRowColumn>
-                  {row.tags.map((tag, ind) => <span className={"tag " + this.getTagColor(tag)} key={ind}>{tag}</span>)}
+                  {row.tags.map((tag, ind) => <span className={"tag " + this.getTagColor(tag.name)} key={ind}><span className="rating">{tag.rating} <FontIcon className="material-icons rating-star" color={yellow500}>star</FontIcon></span>{tag.name}</span>)}
                 </TableRowColumn>
-                <TableRowColumn>{row.rating}</TableRowColumn>
               </TableRow>
               ))}
           </TableBody>

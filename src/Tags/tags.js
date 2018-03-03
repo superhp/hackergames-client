@@ -1,5 +1,4 @@
 import React from 'react';
-import { suggestions } from '../data/data';
 import { WithContext as ReactTags } from 'react-tag-input';
 import styles from './tags.css';
 
@@ -21,9 +20,10 @@ class Tags extends React.Component {
     }
 
     getSuggestions(users) {
-        console.log(users);
-        var suggestions = users.map(u => u.tags);
-        return [].concat.apply([], suggestions).filter(this.onlyUnique);
+        var suggestionsLists = users.map(u => u.tags);
+        var suggestions = [].concat.apply([], suggestionsLists);
+
+        return [].concat.apply([], suggestions.map(t => t.name)).filter(this.onlyUnique);
     }
 
     componentWillReceiveProps(nextProps) {
