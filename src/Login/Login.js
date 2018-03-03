@@ -18,6 +18,7 @@ class Login extends React.Component {
 
         this.register = this.register.bind(this);
         this.changeUsername = this.changeUsername.bind(this);
+        this.changeEmail = this.changeEmail.bind(this);
     }
 
     componentDidMount() {
@@ -76,9 +77,17 @@ class Login extends React.Component {
             <div className="login">
                 <h1>Register</h1>
 
-                <TextField hintText="Email" value={this.state.email} onChange={this.changeEmail} floatingLabelText="Your email" />
-                <TextField hintText="Username" value={this.state.username} onChange={this.changeUsername} floatingLabelText="Your username" />
-                <br /><br />
+                <div className="row">
+                    <div className="col-md-12">
+                        <TextField hintText="Email" value={this.state.email} onChange={this.changeEmail} floatingLabelText="Your email" />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        <TextField hintText="Username" value={this.state.username} onChange={this.changeUsername} floatingLabelText="Your username" />
+                    </div>
+                </div>
+                <br />
                 <Tags updateTags={this.handleTagsChange} users={this.state.users} />
 
                 <RaisedButton className="register-button" label="JOIN" onClick={this.register} primary={true} />
