@@ -50,7 +50,7 @@ class App extends React.Component {
         <Route path='/users' render={routeProps => this.state.username ? <MainPage {...routeProps} socket={this.props.service.getSocket() } /> : <Redirect to="/" /> } />
       </Switch>
       
-      {/* <Chat service={ this.props.service } receiver={{name: 'test', socketId: 'asdadasdasd'}}/> */}
+      {/* <Chat socket={ this.props.service.getSocket() } receiver={{name: 'test', socketId: 'asdadasdasd'}}/> */}
     </MuiThemeProvider>
   }
 
