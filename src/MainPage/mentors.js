@@ -63,6 +63,7 @@ export default class Mentors extends Component {
   };
 
   handleSubmit = () => {
+    this.props.handleMessageRequest(this.state.selectedUser, this.state.requestMessage);
     this.setState({dialogOpen: false,
       requestMessage: ''});
   }

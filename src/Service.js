@@ -15,8 +15,6 @@ class Service {
     }
 
     register(data) {
-        console.log("register data");
-        console.log(data);
         this.socket.emit("login", data);
     }
 

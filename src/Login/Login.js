@@ -6,10 +6,6 @@ import Tags from '../Tags/tags';
 import Paper from 'material-ui/Paper';
 import styles from './login.css';
 
-function handleRequestDelete() {
-    console.log("delete");
-}
-
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -26,8 +22,6 @@ class Login extends React.Component {
 
     componentDidMount() {
         this.props.service.getSocket().on('user list', activeUsers => {
-            console.log("users list");
-            console.log(activeUsers);
             this.setState({users: activeUsers});
         });
 
@@ -41,7 +35,7 @@ class Login extends React.Component {
         console.log(data);
         this.setState({
             email: data[0].user_id,
-            name: data[0].user_claims.find(uc => uc.typ === "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").val
+            username: data[0].user_claims.find(uc => uc.typ === "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").val
         })
         //this.register();
     }
@@ -74,7 +68,6 @@ class Login extends React.Component {
             username: this.state.username,
             tags: tags
         });
-        console.log(tags);
     }
 
     render() {
