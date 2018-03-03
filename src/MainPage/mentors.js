@@ -48,6 +48,7 @@ export default class Mentors extends Component {
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>Tags</TableHeaderColumn>
+              <TableHeaderColumn>Rating</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
@@ -60,6 +61,7 @@ export default class Mentors extends Component {
               <TableRow key={index}>
                 <TableRowColumn>{row.name}</TableRowColumn>
                 <TableRowColumn>{row.tags}</TableRowColumn>
+                <TableRowColumn>{row.rating}</TableRowColumn>
               </TableRow>
               ))}
           </TableBody>

@@ -1,5 +1,5 @@
 module.exports = {
-    suggestions: ["Programming", "Dancing", "Cars", "Teletubbies"],
+    suggestions: ["Programming", "Dancing", "Cars", "Teletubbies", "Progggg", "prooo", "propropro"],
     activeUsers: [
         {
             name: "Petras",

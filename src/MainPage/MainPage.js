@@ -1,6 +1,6 @@
 import React from 'react';
 import Tags from '../Tags/tags';
-import Mentors from './mentors.js';
+import Mentors from './Mentors.js';
 import { activeUsers } from '../data/data';
 
 class MainPage extends React.Component {
@@ -14,7 +14,6 @@ class MainPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.socket.emit('user list', null);
         this.props.socket.on('user list', activeUsers => {
             this.setState({users: activeUsers});
             this.filterAndSortUsers(this.state.tags);
@@ -24,8 +23,6 @@ class MainPage extends React.Component {
     handleTagsChange(newTags) {
         this.setState({tags: newTags})
         this.filterAndSortUsers(newTags);
-        // let filteredUsers = activeUsers.sort(() => {return 0.5 - Math.random()})
-        // this.setState({users: filteredUsers});
     }
 
     filterAndSortUsers(tags) {

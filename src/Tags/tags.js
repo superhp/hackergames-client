@@ -49,16 +49,22 @@ class Tags extends React.Component {
         this.setState({ tags: tags });
     }
 
+
     render = () => {
         const { tags, suggestions } = this.state;
         return (
-            <div>
-                <ReactTags tags={tags}
-                    suggestions={suggestions}
-                    handleDelete={this.handleDelete}
-                    handleAddition={this.handleAddition}
-                    handleDrag={this.handleDrag} />
+            <div class="row">
+                <div className="col-sm-2"></div>
+                <div className="col-sm-8">
+                    <ReactTags tags={tags}
+                        suggestions={suggestions}
+                        handleDelete={this.handleDelete}
+                        handleAddition={this.handleAddition}
+                        handleDrag={this.handleDrag} />
+                </div>
+                <div className="col-sm-12"></div>
             </div>
+            
         )
     }
 }
