@@ -84,7 +84,7 @@ class MainPage extends React.Component {
                 </div>
             </div>
             <div className="col-lg-3">
-                <MessageRequests messages={this.state.requestMessages}/>
+                <MessageRequests messages={this.state.requestMessages} socket={this.props.socket}/>
             </div>
         </div>
     }
