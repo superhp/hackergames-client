@@ -33,14 +33,14 @@ class MainPage extends React.Component {
             return intersectingTags.length !== 0;
         });
         let sortedUsers = usersFilteredByTag.sort((a, b) => {
-            return a.rating > b.rating;
+            return a.rating < b.rating;
         })
         this.setState({filteredUsers: sortedUsers});
     }
 
     render = () => {
         return <div>
-            <Tags updateTags={this.handleTagsChange}/>
+            <Tags updateTags={this.handleTagsChange} users={this.state.users} />
             <Mentors tableData={this.state.filteredUsers}/>
         </div>
     }

@@ -9,12 +9,34 @@ class Tags extends React.Component {
     constructor(props) {
         super(props);
 
+        var suggestions = this.getSuggestions(this.props.users);
+        console.log("suggestions");
+        console.log(suggestions);
+
         this.state = {tags: [{ id: 1, text: "Great stuff" }],
             suggestions: suggestions
         }
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
+    }
+
+    getSuggestions(users) {
+        console.log(users);
+        var suggestions = users.map(u => u.tags);
+        return [].concat.apply([], suggestions).filter(this.onlyUnique);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        var suggestions = this.getSuggestions(nextProps.users);
+
+        this.setState({
+            suggestions: suggestions
+        })
+    }
+
+    onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
     }
 
     handleDelete(i) {

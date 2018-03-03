@@ -15,10 +15,18 @@ function handleRequestDelete() {
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { username: ""};
+        this.state = { username: "", users: []};
 
         this.register = this.register.bind(this);
         this.changeUsername = this.changeUsername.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.service.getSocket().on('user list', activeUsers => {
+            console.log("users list");
+            console.log(activeUsers);
+            this.setState({users: activeUsers});
+        });
     }
 
     register() {
@@ -50,7 +58,7 @@ class Login extends React.Component {
 
             <TextField hintText="Username" value={this.state.username} onChange={this.changeUsername} floatingLabelText="Your username" />
             <br /><br />
-            <Tags updateTags={this.handleTagsChange} />
+            <Tags updateTags={this.handleTagsChange} users={this.state.users} />
 
             <RaisedButton label="JOIN" onClick={this.register} primary={true} style={registerButtonStyle} />
         </div>
