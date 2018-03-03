@@ -35,7 +35,7 @@ class Login extends React.Component {
         console.log(data);
         this.setState({
             email: data[0].user_id,
-            name: data[0].user_claims.find(uc => uc.typ === "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").val
+            username: data[0].user_claims.find(uc => uc.typ === "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").val
         })
         //this.register();
     }
