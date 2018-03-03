@@ -3,17 +3,23 @@ import Tags from '../Tags/tags';
 import Mentors from './Mentors.js';
 import { activeUsers, requestMessages } from '../data/data';
 import MessageRequests from './MessageRequests';
+import Chat from '../Chat/Chat';
+import Dialog from 'material-ui/Dialog';
 
 class MainPage extends React.Component {
 
     constructor() {
         super();
-        this.state = { users: [], filteredUsers: [], tags: [], requestMessages: requestMessages };
+        this.state = { users: [], filteredUsers: [], tags: [], requestMessages: requestMessages, inChat: false, mentorSocketId: '', mentorUserName: '' };
 
         this.handleTagsChange = this.handleTagsChange.bind(this);
         this.filterAndSortUsers = this.filterAndSortUsers.bind(this);
         this.handleMessageRequest = this.handleMessageRequest.bind(this);
-        this.handleMessageReject = this.handleMessageReject.bind(this);
+        this.handleMessageReject = this.handleMessageReject.bind(this);        
+    }
+
+    handleClose() {
+        this.setState({inChat: false, mentorUserName: '', mentorSocketId: ''})
     }
 
     componentDidMount() {
@@ -24,6 +30,10 @@ class MainPage extends React.Component {
         this.props.socket.on('request messages', reqMessages => {
             this.setState({requestMessages: reqMessages});
         });
+        this.props.socket.on('notify accept', mentorSocketId => {
+            this.state.users.find(user => this.setState({mentorUserName: user.name}));
+            this.setState({inChat: true, mentorSocketId: mentorSocketId});            
+        })
     }
 
     handleTagsChange(newTags) {
@@ -75,7 +85,7 @@ class MainPage extends React.Component {
         this.props.socket.emit('send request message', user.socketId, this.props.socket.id, reqMessage);
     }
 
-    render = () => {
+    render = () => {             
         return <div className="row">
             <div className="col-lg-8 col-lg-offset-1">
                 <div>
@@ -93,7 +103,13 @@ class MainPage extends React.Component {
                 <MessageRequests messages={this.state.requestMessages}
                     handleMessageReject={this.handleMessageReject} socket={this.props.socket}/>
             </div>
-        </div>
+            <Dialog
+                modal={true}
+                open={this.state.inChat}
+                >
+                <Chat socket={this.props.socket} receiver={{name: this.state.mentorUserName, id: this.state.mentorSocketId}} onClose={this.handleClose} />
+            </Dialog>
+        </div>    
     }
 }
 

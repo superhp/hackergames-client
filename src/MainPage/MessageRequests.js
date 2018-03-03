@@ -21,6 +21,7 @@ class MessageRequests extends React.Component {
 
     handleAccept(msg){
         this.setState({inChat: true, acceptedMessage: msg});
+        this.props.socket.emit('notify accept', this.state.acceptedMessage.socketId, this.props.socket.id)
     }
 
     handleClose = () => {
