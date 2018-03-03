@@ -5,7 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { socketConnect } from 'socket.io-react';
-import MainPage from './MainPage/MainPage';
+import MainPage from './MainPage/mainPage';
 import Login from './Login/Login';
 
 class App extends React.Component {
