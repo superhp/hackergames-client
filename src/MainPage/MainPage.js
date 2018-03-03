@@ -7,26 +7,44 @@ class MainPage extends React.Component {
 
     constructor() {
         super();
-        this.state = { users: [] };
+        this.state = { users: [], filteredUsers: [], tags: [] };
+
+        this.handleTagsChange = this.handleTagsChange.bind(this);
+        this.filterAndSortUsers = this.filterAndSortUsers.bind(this);
     }
 
     componentDidMount() {
         this.props.socket.emit('user list', null);
         this.props.socket.on('user list', activeUsers => {
-            this.setState({users: activeUsers})
+            this.setState({users: activeUsers});
+            this.filterAndSortUsers(this.state.tags);
         });
     }
 
-    handleTagsChange = (tags) => {
-        console.log(tags);
+    handleTagsChange(newTags) {
+        this.setState({tags: newTags})
+        this.filterAndSortUsers(newTags);
         // let filteredUsers = activeUsers.sort(() => {return 0.5 - Math.random()})
         // this.setState({users: filteredUsers});
+    }
+
+    filterAndSortUsers(tags) {
+        let usersFilteredByTag = this.state.users.filter(user => {
+            let intersectingTags = tags.filter(tag => {
+                return user.tags.indexOf(tag) !== -1;
+            });
+            return intersectingTags.length !== 0;
+        });
+        let sortedUsers = usersFilteredByTag.sort((a, b) => {
+            return a.rating > b.rating;
+        })
+        this.setState({filteredUsers: sortedUsers});
     }
 
     render = () => {
         return <div>
             <Tags updateTags={this.handleTagsChange}/>
-            <Mentors tableData={this.state.users}/>
+            <Mentors tableData={this.state.filteredUsers}/>
         </div>
     }
 }
