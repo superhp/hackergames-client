@@ -49,8 +49,8 @@ class App extends React.Component {
         <Route exact path='/' render={routeProps => this.state.username ? <Redirect to="/users" /> : <Login {...routeProps} onLogin={ this.onLogin } service={ this.props.service } /> } />
         <Route path='/users' render={routeProps => this.state.username ? <MainPage {...routeProps} socket={this.props.service.getSocket() } /> : <Redirect to="/" /> } />
       </Switch>
-
-      {/* <Chat receiverId="asdasdasd" service={ this.props.service } receiver={{}}/> */}
+      
+      <Chat service={ this.props.service } receiver={{name: 'test', socketId: 'asdadasdasd'}}/>
     </MuiThemeProvider>
   }
 

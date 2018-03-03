@@ -1,5 +1,6 @@
 import React from 'react';
 import { TalkBox } from "react-talk";
+import styles from './chat.css'
 
 class Chat extends React.Component {
 
@@ -35,9 +36,11 @@ class Chat extends React.Component {
 
     render() {
         return (
-          <div>
-            <TalkBox topic="react-websocket-template" currentUserId={this.props.receiver.socketId} currentUser={this.props.receiver.name}
-              messages={ this.state.messages } onSendMessage={ this.sendMessage } />
+          <div className="close-div"> 
+            <a href='#' className="close-thik" onClick={this.props.onClose}/>
+            <TalkBox topic={this.props.receiver.name} currentUserId={this.props.receiver.socketId} currentUser={this.props.receiver.name}
+              messages={ this.state.messages } onSendMessage={ this.sendMessage }>              
+            </TalkBox>
           </div>
         );
     }
