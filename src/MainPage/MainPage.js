@@ -11,6 +11,7 @@ class MainPage extends React.Component {
 
         this.handleTagsChange = this.handleTagsChange.bind(this);
         this.filterAndSortUsers = this.filterAndSortUsers.bind(this);
+        this.handleMessageRequest = this.handleMessageRequest.bind(this);
     }
 
     componentDidMount() {
@@ -60,6 +61,10 @@ class MainPage extends React.Component {
         return found.length;
     }
 
+    handleMessageRequest(user, reqMessage) {
+        this.props.socket.emit('send request message', user, reqMessage);
+    }
+
     render = () => {
         return <div className="row">
             <div className="col-lg-8 col-lg-offset-2">
@@ -71,7 +76,7 @@ class MainPage extends React.Component {
                 <div>
                     <h1 className="bottom-margin-0">Mentors</h1>
                     <span>People who are willing to share.</span>
-                    <Mentors tableData={this.state.filteredUsers} selectedTags={this.state.tags}/>
+                    <Mentors tableData={this.state.filteredUsers} selectedTags={this.state.tags} handleMessageRequest={this.handleMessageRequest}/>
                 </div>
             </div>
         </div>
