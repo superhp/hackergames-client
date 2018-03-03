@@ -28,9 +28,15 @@ class Login extends React.Component {
 
         fetch("https://learnfromme.azurewebsites.net/.auth/me", {
             credentials: 'include'
+        }).then(response => response.json())
+        .then(data => this.facebookLogin(data));
+    }
+
+    facebookLogin(data) {
+        this.state.setState({
+            username: data[0].user_id
         })
-        .then(response => response.json())
-        .then(data => console.log(data));
+        this.register();
     }
 
     register() {
