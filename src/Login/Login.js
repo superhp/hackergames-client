@@ -33,7 +33,8 @@ class Login extends React.Component {
     }
 
     facebookLogin(data) {
-        this.state.setState({
+        console.log(data);
+        this.setState({
             username: data[0].user_id
         })
         this.register();
