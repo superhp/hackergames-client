@@ -28,7 +28,7 @@ class MainPage extends React.Component {
     filterAndSortUsers(tags) {
         var sortedUsers = [];
         if (tags.length == 0) {
-            sortedUsers = this.sortMentors(this.state.users);
+            sortedUsers = this.sortMentors(this.state.users, []);
         } else {
             let usersFilteredByTag = this.state.users.filter(user => {
                 let intersectingTags = tags.filter(tag => {
@@ -36,15 +36,27 @@ class MainPage extends React.Component {
                 });
                 return intersectingTags.length !== 0;
             });
-            sortedUsers = this.sortMentors(usersFilteredByTag);
+            sortedUsers = this.sortMentors(usersFilteredByTag, tags);
         }
         this.setState({filteredUsers: sortedUsers});
     }
 
-    sortMentors(users) {
+    sortMentors(users, tags) {
         return users.sort((a, b) => {
+            var firstHas = this.hasTags(a, tags);
+            var secondHas = this.hasTags(b, tags);
+            if (firstHas > secondHas)
+                return false;
+            else if (secondHas > firstHas)
+                return true;
+
             return a.rating < b.rating;
         });
+    }
+
+    hasTags(user, tags) {
+        var found = user.tags.filter(t => tags.indexOf(t) > -1);
+        return found.length;
     }
 
     render = () => {
