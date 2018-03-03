@@ -1,13 +1,14 @@
 import React from 'react';
 import Tags from '../Tags/tags';
 import Mentors from './Mentors.js';
-import { activeUsers } from '../data/data';
+import { activeUsers, requestMessages } from '../data/data';
+import MessageRequests from './MessageRequests';
 
 class MainPage extends React.Component {
 
     constructor() {
         super();
-        this.state = { users: [], filteredUsers: [], tags: [] };
+        this.state = { users: [], filteredUsers: [], tags: [], requestMessages: requestMessages };
 
         this.handleTagsChange = this.handleTagsChange.bind(this);
         this.filterAndSortUsers = this.filterAndSortUsers.bind(this);
@@ -20,7 +21,7 @@ class MainPage extends React.Component {
             this.filterAndSortUsers(this.state.tags);
         });
         this.props.socket.on('request messages', reqMessages => {
-            console.log(reqMessages);
+            this.setState({requestMessages: reqMessages});
         });
     }
 
@@ -70,7 +71,7 @@ class MainPage extends React.Component {
 
     render = () => {
         return <div className="row">
-            <div className="col-lg-8 col-lg-offset-2">
+            <div className="col-lg-8 col-lg-offset-1">
                 <div>
                     <h1 className="bottom-margin-0">Interests</h1>
                     <span>The things you somehow forgot.</span>
@@ -81,6 +82,9 @@ class MainPage extends React.Component {
                     <span>People who are willing to share.</span>
                     <Mentors tableData={this.state.filteredUsers} selectedTags={this.state.tags} handleMessageRequest={this.handleMessageRequest}/>
                 </div>
+            </div>
+            <div className="col-lg-3">
+                <MessageRequests messages={this.state.requestMessages}/>
             </div>
         </div>
     }
