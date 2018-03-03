@@ -8,6 +8,7 @@ import { socketConnect } from 'socket.io-react';
 import MainPage from './MainPage/MainPage';
 import Login from './Login/Login';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
+import Chat from './Chat/Chat'
 
 class App extends React.Component {
 
@@ -49,6 +50,7 @@ class App extends React.Component {
         <Route path='/users' render={routeProps => this.state.username ? <MainPage {...routeProps} socket={this.props.service.getSocket() } /> : <Redirect to="/" /> } />
       </Switch>
 
+      {/* <Chat receiverId="asdasdasd" service={ this.props.service } receiver={{}}/> */}
     </MuiThemeProvider>
   }
 
