@@ -15,9 +15,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.sendMessage = this.sendMessage.bind(this);
-
-    this.props.service.getSocket().on('user list', msg => console.log(msg));
-
+    
     this.state = {};
   }
 

@@ -19,6 +19,9 @@ class MainPage extends React.Component {
             this.setState({users: activeUsers});
             this.filterAndSortUsers(this.state.tags);
         });
+        this.props.socket.on('request messages', reqMessages => {
+            console.log(reqMessages);
+        });
     }
 
     handleTagsChange(newTags) {
@@ -62,7 +65,7 @@ class MainPage extends React.Component {
     }
 
     handleMessageRequest(user, reqMessage) {
-        this.props.socket.emit('send request message', user, reqMessage);
+        this.props.socket.emit('send request message', user.socketId, this.props.socket.id, reqMessage);
     }
 
     render = () => {
