@@ -13,9 +13,10 @@ class Tags extends React.Component {
         console.log("suggestions");
         console.log(suggestions);
 
-        this.state = {tags: [{ id: 1, text: "Great stuff" }],
+        this.state = {
+            tags: [],
             suggestions: suggestions
-        }
+        };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
@@ -32,7 +33,7 @@ class Tags extends React.Component {
 
         this.setState({
             suggestions: suggestions
-        })
+        });
     }
 
     onlyUnique(value, index, self) { 
@@ -71,11 +72,10 @@ class Tags extends React.Component {
         this.setState({ tags: tags });
     }
 
-
     render = () => {
         const { tags, suggestions } = this.state;
         return (
-            <div class="row">
+            <div className="row">
                 <div className="col-sm-2"></div>
                 <div className="col-sm-8">
                     <ReactTags tags={tags}
@@ -86,7 +86,6 @@ class Tags extends React.Component {
                 </div>
                 <div className="col-sm-12"></div>
             </div>
-            
         )
     }
 }

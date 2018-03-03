@@ -26,16 +26,25 @@ class MainPage extends React.Component {
     }
 
     filterAndSortUsers(tags) {
-        let usersFilteredByTag = this.state.users.filter(user => {
-            let intersectingTags = tags.filter(tag => {
-                return user.tags.indexOf(tag) !== -1;
+        var sortedUsers = [];
+        if (tags.length == 0) {
+            sortedUsers = this.sortMentors(this.state.users);
+        } else {
+            let usersFilteredByTag = this.state.users.filter(user => {
+                let intersectingTags = tags.filter(tag => {
+                    return user.tags.indexOf(tag) !== -1;
+                });
+                return intersectingTags.length !== 0;
             });
-            return intersectingTags.length !== 0;
-        });
-        let sortedUsers = usersFilteredByTag.sort((a, b) => {
-            return a.rating < b.rating;
-        })
+            sortedUsers = this.sortMentors(usersFilteredByTag);
+        }
         this.setState({filteredUsers: sortedUsers});
+    }
+
+    sortMentors(users) {
+        return users.sort((a, b) => {
+            return a.rating < b.rating;
+        });
     }
 
     render = () => {
