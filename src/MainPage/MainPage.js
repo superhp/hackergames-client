@@ -28,7 +28,7 @@ class MainPage extends React.Component {
     filterAndSortUsers(tags) {
         var sortedUsers = [];
         if (tags.length == 0) {
-            sortedUsers = this.sortMentors(this.state.users);
+            sortedUsers = this.sortMentors(this.state.users, []);
         } else {
             let usersFilteredByTag = this.state.users.filter(user => {
                 let intersectingTags = tags.filter(tag => {
@@ -36,21 +36,43 @@ class MainPage extends React.Component {
                 });
                 return intersectingTags.length !== 0;
             });
-            sortedUsers = this.sortMentors(usersFilteredByTag);
+            sortedUsers = this.sortMentors(usersFilteredByTag, tags);
         }
         this.setState({filteredUsers: sortedUsers});
     }
 
-    sortMentors(users) {
+    sortMentors(users, tags) {
         return users.sort((a, b) => {
+            var firstHas = this.hasTags(a, tags);
+            var secondHas = this.hasTags(b, tags);
+            if (firstHas > secondHas)
+                return false;
+            else if (secondHas > firstHas)
+                return true;
+
             return a.rating < b.rating;
         });
     }
 
+    hasTags(user, tags) {
+        var found = user.tags.filter(t => tags.indexOf(t) > -1);
+        return found.length;
+    }
+
     render = () => {
-        return <div>
-            <Tags updateTags={this.handleTagsChange} users={this.state.users} />
-            <Mentors tableData={this.state.filteredUsers}/>
+        return <div className="row">
+            <div className="col-lg-8 col-lg-offset-2">
+                <div>
+                    <h1 className="bottom-margin-0">Interests</h1>
+                    <span>The things you somehow forgot.</span>
+                    <Tags updateTags={this.handleTagsChange} users={this.state.users} />
+                </div>
+                <div>
+                    <h1 className="bottom-margin-0">Mentors</h1>
+                    <span>People who are willing to share.</span>
+                    <Mentors tableData={this.state.filteredUsers} selectedTags={this.state.tags}/>
+                </div>
+            </div>
         </div>
     }
 }

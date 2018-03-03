@@ -8,9 +8,9 @@ div.ReactTags__tags {
   
   /* Styles for the input */
   div.ReactTags__tagInput {
-    width: 200px;
+    width: 256px;
     border-radius: 2px;
-    display: inline-block;
+    display: block;
   }
   div.ReactTags__tagInput input.ReactTags__tagInputField,
   div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
@@ -29,7 +29,6 @@ div.ReactTags__tags {
   
   /* Styles for selected tags */
   div.ReactTags__selected span.ReactTags__tag {
-    border: 1px solid #ddd;
     background: #eee;
     display: inline-block;
     padding: 5px;

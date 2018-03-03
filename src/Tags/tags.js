@@ -10,8 +10,6 @@ class Tags extends React.Component {
         super(props);
 
         var suggestions = this.getSuggestions(this.props.users);
-        console.log("suggestions");
-        console.log(suggestions);
 
         this.state = {
             tags: [],
@@ -75,16 +73,12 @@ class Tags extends React.Component {
     render = () => {
         const { tags, suggestions } = this.state;
         return (
-            <div className="row">
-                <div className="col-sm-2"></div>
-                <div className="col-sm-8">
-                    <ReactTags tags={tags}
-                        suggestions={suggestions}
-                        handleDelete={this.handleDelete}
-                        handleAddition={this.handleAddition}
-                        handleDrag={this.handleDrag} />
-                </div>
-                <div className="col-sm-12"></div>
+            <div>
+                <ReactTags tags={tags}
+                    suggestions={suggestions}
+                    handleDelete={this.handleDelete}
+                    handleAddition={this.handleAddition}
+                    handleDrag={this.handleDrag} />
             </div>
         )
     }
