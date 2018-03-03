@@ -20,4 +20,4 @@ ReactDOM.render(
         </SocketProvider>
     </BrowserRouter>,
     document.getElementById('root'));
-registerServiceWorker();
+//registerServiceWorker();
