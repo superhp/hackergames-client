@@ -13,7 +13,12 @@ function handleRequestDelete() {
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { username: "", users: []};
+        this.state = { 
+            username: "",
+            users: [],
+            tags: [],
+            email: ""
+        };
 
         this.register = this.register.bind(this);
         this.changeUsername = this.changeUsername.bind(this);
@@ -35,7 +40,8 @@ class Login extends React.Component {
     facebookLogin(data) {
         console.log(data);
         this.setState({
-            username: data[0].user_id
+            email: data[0].user_id,
+            name: data[0].user_claims.find(uc => uc.typ === "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").val
         })
         //this.register();
     }
@@ -44,6 +50,7 @@ class Login extends React.Component {
         console.log(this.state);
         this.props.service.register({
             name: this.state.username,
+            email: this.state.email,
             tags: this.state.tags.map(t => new Object({
                 name: t,
                 rating: 0,
@@ -56,6 +63,10 @@ class Login extends React.Component {
 
     changeUsername(e) {
         this.setState({ username: e.target.value });
+    }
+
+    changeEmail(e) {
+        this.setState({ email: e.target.value });
     }
 
     handleTagsChange = (tags) => {
@@ -72,6 +83,7 @@ class Login extends React.Component {
             <div className="login">
                 <h1>Register</h1>
 
+                <TextField hintText="Email" value={this.state.email} onChange={this.changeEmail} floatingLabelText="Your email" />
                 <TextField hintText="Username" value={this.state.username} onChange={this.changeUsername} floatingLabelText="Your username" />
                 <br /><br />
                 <Tags updateTags={this.handleTagsChange} users={this.state.users} />
