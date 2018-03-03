@@ -15,7 +15,7 @@ class MessageRequests extends React.Component {
         return (
             <ul>
                 {this.props.messages.map((msg, index) => {
-                    return <li>
+                    return <li key={index}>
                         <Card>
                         <CardHeader
                             title={msg.userName}
@@ -25,7 +25,8 @@ class MessageRequests extends React.Component {
                         <CardText expandable={true}>
                             {msg.message}
                             <CardActions>
-                                <FlatButton label="Reject" secondary={true}/>
+                                <FlatButton label="Reject" secondary={true}
+                                    onClick={(e) => this.props.handleMessageReject(e, msg.userName)}/>
                                 <FlatButton label="Accept" primary={true}/>
                             </CardActions>
                         </CardText>

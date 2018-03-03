@@ -13,6 +13,7 @@ class MainPage extends React.Component {
         this.handleTagsChange = this.handleTagsChange.bind(this);
         this.filterAndSortUsers = this.filterAndSortUsers.bind(this);
         this.handleMessageRequest = this.handleMessageRequest.bind(this);
+        this.handleMessageReject = this.handleMessageReject.bind(this);
     }
 
     componentDidMount() {
@@ -28,6 +29,11 @@ class MainPage extends React.Component {
     handleTagsChange(newTags) {
         this.setState({tags: newTags})
         this.filterAndSortUsers(newTags);
+    }
+
+    handleMessageReject(e, userName) {
+        let updatedMessages = this.state.requestMessages.filter(x => x.userName !== userName);
+        this.setState({requestMessages: updatedMessages})
     }
 
     filterAndSortUsers(tags) {
@@ -84,7 +90,8 @@ class MainPage extends React.Component {
                 </div>
             </div>
             <div className="col-lg-3">
-                <MessageRequests messages={this.state.requestMessages}/>
+                <MessageRequests messages={this.state.requestMessages}
+                    handleMessageReject={this.handleMessageReject}/>
             </div>
         </div>
     }
