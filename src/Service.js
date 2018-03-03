@@ -22,6 +22,14 @@ class Service {
         this.socket.emit("logout");
         console.log("logout");
     }
+
+    rate(rating, user, tag) {
+        this.socket.emit("rate", {
+            receiverId: user,
+            score: rating,
+            tag: tag
+        })
+    } 
 }
 
 export default Service;

@@ -56,7 +56,7 @@ class MessageRequests extends React.Component {
                                     <CardText expandable={true}>
                                         {msg.message}
                                         <CardActions>
-                                            <FlatButton label="Reject" secondary={true}/>
+                                            <FlatButton label="Reject" secondary={true} onClick={(e) => this.props.handleMessageReject(e, msg.userName)}/>
                                             <FlatButton label="Accept" primary={true} onClick={(e) => this.handleAccept(msg)}/>
                                         </CardActions>
                                     </CardText>

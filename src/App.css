@@ -60,3 +60,8 @@
 .rating-star {
   font-size: 12px !important;
 }
+
+.centered-rating {
+  display: table;
+  margin: 0 auto;
+}

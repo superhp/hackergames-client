@@ -78,7 +78,8 @@ class Tags extends React.Component {
                     suggestions={suggestions}
                     handleDelete={this.handleDelete}
                     handleAddition={this.handleAddition}
-                    handleDrag={this.handleDrag} />
+                    handleDrag={this.handleDrag} 
+                    placeholder={"What is your job or hobby?"} />
             </div>
         )
     }
