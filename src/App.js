@@ -5,8 +5,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { socketConnect } from 'socket.io-react';
-import MainPage from './MainPage/mainPage';
+import MainPage from './MainPage/MainPage';
 import Login from './Login/Login';
+import { Switch, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -42,12 +43,11 @@ class App extends React.Component {
   render = () => {
     return <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
       <AppBar title="Learn from me" showMenuIconButton={ false } iconElementRight={ this.state.username ? <FlatButton onClick={ this.logout } label="Logout" /> : <FlatButton label="Login" />  } />
-      <MainPage socket={this.props.service.getSocket()}/>
-      <button onClick={this.sendMessage}>
-         Send msg to socket.io
-         </button>
-
-      <Login onLogin={ this.onLogin } service={ this.props.service } />
+      
+      <Switch>
+        <Route exact path='/' render={routeProps => this.state.username ? <Redirect to="/users" /> : <Login {...routeProps} onLogin={ this.onLogin } service={ this.props.service } /> } />
+        <Route path='/users' render={routeProps => this.state.username ? <MainPage {...routeProps} socket={this.props.service.getSocket() } /> : <Redirect to="/" /> } />
+      </Switch>
 
     </MuiThemeProvider>
   }

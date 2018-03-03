@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { SocketProvider } from 'socket.io-react';
 import io from 'socket.io-client';
 import Service from './Service';
+import { BrowserRouter } from 'react-router-dom'
 
 var service = new Service();
 var socket = service.getSocket();
@@ -13,8 +14,10 @@ var socket = service.getSocket();
 const DOMNode = document.getElementById('renderTarget');
 
 ReactDOM.render(
-    <SocketProvider socket={socket}>
-        <App service={service}/>
-    </SocketProvider>,
+    <BrowserRouter>
+        <SocketProvider socket={socket}>
+            <App service={service}/>
+        </SocketProvider>
+    </BrowserRouter>,
     document.getElementById('root'));
 registerServiceWorker();
