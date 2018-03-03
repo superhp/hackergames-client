@@ -3,6 +3,10 @@ import { Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow
 import appStyles from '../App.css';
 import FontIcon from 'material-ui/FontIcon';
 import {yellow500} from 'material-ui/styles/colors';
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 const styles = {
   propContainer: {
@@ -33,16 +37,54 @@ export default class Mentors extends Component {
       deselectOnClickaway: true,
       showCheckboxes: false,
       height: '300px',
+      dialogOpen: false,
+      selectedUser: {},
+      requestMessage: ''
     };
 
+    this.handleMessageRequest = this.handleMessageRequest.bind(this);
     this.getTagColor = this.getTagColor.bind(this);
+    this.onReqMessageChange = this.onReqMessageChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   getTagColor(tag) {
     return this.props.selectedTags.indexOf(tag) !== -1 ? 'matching-tag': 'simple-tag';
   }
 
+  handleMessageRequest(e, user) {
+    this.setState({selectedUser: user})
+    this.setState({dialogOpen: true})
+  }
+
+  handleClose = () => {
+    this.setState({dialogOpen: false,
+      requestMessage: ''});
+  };
+
+  handleSubmit = () => {
+    this.setState({dialogOpen: false,
+      requestMessage: ''});
+  }
+
+  onReqMessageChange(e) {
+    this.setState({requestMessage: e.target.value})
+  }
+
   render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        onClick={this.handleSubmit}
+      />,
+    ];
+
     return (
       <div>
         <Table
@@ -60,6 +102,7 @@ export default class Mentors extends Component {
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>Tags</TableHeaderColumn>
+              <TableHeaderColumn> </TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
@@ -72,7 +115,15 @@ export default class Mentors extends Component {
               <TableRow key={index}>
                 <TableRowColumn>{row.name}</TableRowColumn>
                 <TableRowColumn>
-                  {row.tags.map((tag, ind) => <span className={"tag " + this.getTagColor(tag.name)} key={ind}><span className="rating">{tag.rating} <FontIcon className="material-icons rating-star" color={yellow500}>star</FontIcon></span>{tag.name}</span>)}
+                  {row.tags.map((tag, ind) => <span className={"tag " + this.getTagColor(tag.name)} key={ind}><span className="rating">{tag.rating} 
+                    <FontIcon className="material-icons rating-star" color={yellow500}>star</FontIcon></span>{tag.name}</span>)}
+                </TableRowColumn>
+                <TableRowColumn>
+                  <RaisedButton icon={<FontIcon className="material-icons message">message</FontIcon>} 
+                    primary={true} 
+                    label="Ask"
+                    labelPosition="before"
+                    onClick={(e) => this.handleMessageRequest(e, row)}/>
                 </TableRowColumn>
               </TableRow>
               ))}
@@ -83,6 +134,21 @@ export default class Mentors extends Component {
             
           </TableFooter>
         </Table>
+        <Dialog
+          title={"Message request for " + this.state.selectedUser.name}
+          actions={actions}
+          modal={true}
+          open={this.state.dialogOpen}
+        >
+          <TextField
+            floatingLabelText="Present yourself. If you pitch good, the mentor may even talk to you."
+            multiLine={true}
+            rows={2}
+            fullWidth={true}
+            value={this.state.requestMessage}
+            onChange={this.onReqMessageChange}
+          />
+        </Dialog>
       </div>
     );
   }
