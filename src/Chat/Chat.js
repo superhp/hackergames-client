@@ -12,24 +12,24 @@ const style = {
 };
 
 class Chat extends React.Component {
-
+    
     constructor(props) {
         super(props);
         this.state = {
             socket: this.props.socket,
             msg: '',
-            receiver: {
-                name: this.props.receiver.name,
-                socketId: this.props.receiver.id
-            },
-            messages: [
-              new Message({
-                id: 1,
-                message: "I'm the recipient! (The person you're talking to)",
-              }), // Gray bubble
-              new Message({ id: 0, message: "I'm you -- the blue bubble!" }), // Blue bubble
-            ]
+            receiver: {},
+            messages: []
         };
+
+        this.changeMessage = this.changeMessage.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
+
+        this.state.socket.on('private message', (msg) => this.setState({messages: [...this.state.messages, new Message({id: 1, message: msg})]}))
+    }
+
+    componentDidMount(){
+        this.setState({ receiver: {name: this.props.receiver.name, socketId: this.props.receiver.id}})
     }
 
     changeMessage(e) {
@@ -37,7 +37,7 @@ class Chat extends React.Component {
     }
 
     sendMessage(msg){
-        this.props.socket.emit('private message', this.state.receiver.id, msg);
+        this.props.socket.emit('private message', this.state.receiver.socketId, msg);
         this.setState({messages: [...this.state.messages, new Message({id: 0, message: msg})], msg: ''});
     }
 
@@ -83,7 +83,7 @@ class Chat extends React.Component {
                             icon={<Arrow color={fullWhite} />}
                             style={style}
                             fullWidth
-                            onClick={this.sendMessage(this.state.msg)}
+                            onClick={(e) => this.sendMessage(this.state.msg)}
                         />
                     </div>
                 </div>
