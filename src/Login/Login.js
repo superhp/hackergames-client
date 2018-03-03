@@ -3,10 +3,8 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Service from '../Service';
 import Tags from '../Tags/tags';
-
-const registerButtonStyle = {
-  margin: 12,
-};
+import Paper from 'material-ui/Paper';
+import styles from './login.css';
 
 function handleRequestDelete() {
     console.log("delete");
@@ -53,15 +51,17 @@ class Login extends React.Component {
 
     render() {
       return (
-        <div className="col-md-8 col-md-offset-2">
-            <h1>Join</h1>
+        <Paper className="col-md-4 col-md-offset-4 login-box" zDepth={3}>
+            <div className="login">
+                <h1>Register</h1>
 
-            <TextField hintText="Username" value={this.state.username} onChange={this.changeUsername} floatingLabelText="Your username" />
-            <br /><br />
-            <Tags updateTags={this.handleTagsChange} users={this.state.users} />
+                <TextField hintText="Username" value={this.state.username} onChange={this.changeUsername} floatingLabelText="Your username" />
+                <br /><br />
+                <Tags updateTags={this.handleTagsChange} users={this.state.users} />
 
-            <RaisedButton label="JOIN" onClick={this.register} primary={true} style={registerButtonStyle} />
-        </div>
+                <RaisedButton className="register-button" label="JOIN" onClick={this.register} primary={true} />
+            </div>
+        </Paper>
       );
     }
 
