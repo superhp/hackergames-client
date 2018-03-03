@@ -21,7 +21,7 @@ class App extends React.Component {
   render = () => {
     return <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
       <AppBar title="Learn from me" showMenuIconButton={ false } iconElementRight={ <FlatButton label="Home" /> } />
-      <MainPage />
+      <MainPage socket={this.props.socket}/>
       <button onClick={this.sendMessage}>
          Send msg to socket.io
          </button>
