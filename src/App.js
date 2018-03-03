@@ -47,7 +47,7 @@ class App extends React.Component {
       
       <Switch>
         <Route exact path='/' render={routeProps => this.state.username ? <Redirect to="/users" /> : <Login {...routeProps} onLogin={ this.onLogin } service={ this.props.service } /> } />
-        <Route path='/users' render={routeProps => this.state.username ? <MainPage {...routeProps} socket={this.props.service.getSocket() } /> : <Redirect to="/" /> } />
+        <Route exact  path='/users' render={routeProps => this.state.username ? <MainPage {...routeProps} socket={this.props.service.getSocket() } /> : <Redirect to="/" /> } />
       </Switch>
       
       {/* <Chat socket={ this.props.service.getSocket() } receiver={{name: 'test', socketId: 'asdadasdasd'}}/> */}
