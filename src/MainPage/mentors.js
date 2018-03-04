@@ -61,13 +61,15 @@ export default class Mentors extends Component {
 
   handleClose = () => {
     this.setState({dialogOpen: false,
-      requestMessage: ''});
+      requestMessage: '',
+      topic: ''});
   };
 
   handleSubmit = () => {
     this.props.handleMessageRequest(this.state.selectedUser, this.state.requestMessage, this.state.topic);
     this.setState({dialogOpen: false,
-      requestMessage: ''});
+      requestMessage: '',
+      topic: ''});
   }
 
   onReqMessageChange(e) {
