@@ -23,11 +23,10 @@ class Service {
         console.log("logout");
     }
 
-    rate(rating, user, tag) {
+    rate(rating, user) {
         this.socket.emit("rate", {
             receiverId: user,
-            score: rating,
-            tag: tag
+            score: rating
         })
     } 
 }

@@ -64,4 +64,5 @@
 .centered-rating {
   display: table;
   margin: 0 auto;
+  width: 100%;
 }

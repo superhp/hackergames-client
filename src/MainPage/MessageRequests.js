@@ -22,11 +22,14 @@ class MessageRequests extends React.Component {
     handleAccept(msg){
         console.log(msg);
         this.setState({inChat: true, acceptedMessage: msg});
-        this.props.socket.emit('notify accept', msg.socketId, this.props.socket.id)
+        this.props.service.getSocket().emit('notify accept', msg.socketId, this.props.service.getSocket().id)
     }
 
     handleClose = () => {
-        this.setState({inChat: false, acceptedMessage: {}});
+        this.setState({
+            inChat: false,
+            acceptedMessage: {}
+        });
     };
 
     render = () => {
@@ -41,7 +44,7 @@ class MessageRequests extends React.Component {
                 modal={true}
                 open={this.state.inChat}
                 >
-                <Chat socket={this.props.socket} receiver={{name: this.state.acceptedMessage.userName, id: this.state.acceptedMessage.socketId}} onClose={this.handleClose} />
+                <Chat service={this.props.service} receiver={{name: this.state.acceptedMessage.userName, id: this.state.acceptedMessage.socketId}} onClose={this.handleClose} />
             </Dialog>
         }
         else{

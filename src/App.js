@@ -9,14 +9,18 @@ import MainPage from './MainPage/MainPage';
 import Login from './Login/Login';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import Chat from './Chat/Chat'
+import Rating from './Rating/Rating';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.sendMessage = this.sendMessage.bind(this);
     
-    this.state = {};
+    this.state = {
+      showRating: false
+    };
   }
 
   sendMessage = () => {
@@ -39,14 +43,35 @@ class App extends React.Component {
     });
   }
 
+  rated = (rating) => {
+    this.props.service.rate(rating, "socketID", "tag");
+
+    this.setState({
+      showRating: false
+    });
+  }
+
+  closeChat = () => {
+    console.log("chat closed");
+    this.setState({
+      showRating: true
+    });
+
+    // TODO: redirect?
+  }
+
   render = () => {
     return <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
       <AppBar title="Learn from me" showMenuIconButton={ false } iconElementRight={ this.state.username ? <FlatButton onClick={ this.logout } label="Logout" /> : <FlatButton label="Login" />  } />
       
       <Switch>
         <Route exact path='/' render={routeProps => this.state.username ? <Redirect to="/users" /> : <Login {...routeProps} onLogin={ this.onLogin } service={ this.props.service } /> } />
-        <Route exact  path='/users' render={routeProps => this.state.username ? <MainPage {...routeProps} socket={this.props.service.getSocket() } /> : <Redirect to="/" /> } />
+        <Route exact  path='/users' render={routeProps => this.state.username ? <MainPage {...routeProps} service={ this.props.service } /> : <Redirect to="/" /> } />
       </Switch>
+
+      {/* <Chat onClose={ this.closeChat } socket={ this.props.service.getSocket() } receiver={{name: "test", id: "ttt"}} />
+
+      <Rating show={this.state.showRating } rated={this.rated} service={ this.props.service } receiver={{name: "test", id: "ttt"}} /> */}
 
     </MuiThemeProvider>
   }

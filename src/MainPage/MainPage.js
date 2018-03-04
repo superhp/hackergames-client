@@ -1,38 +1,42 @@
 import React from 'react';
 import Tags from '../Tags/tags';
 import Mentors from './Mentors.js';
-import { activeUsers } from '../data/data';
+import { activeUsers, requestMessages } from '../data/data';
 import MessageRequests from './MessageRequests';
 import Chat from '../Chat/Chat';
 import Dialog from 'material-ui/Dialog';
+import Rating from '../Rating/Rating';
 
 class MainPage extends React.Component {
 
     constructor() {
         super();
-        this.state = { users: [], filteredUsers: [], tags: [], requestMessages: [], inChat: false, mentorSocketId: '', mentorUserName: '' };
+
+        this.state = { users: [], filteredUsers: [], tags: [], tagsToRate: [], requestMessages: requestMessages, inChat: false, mentorSocketId: '', mentorUserName: '', showRating: false };
 
         this.handleTagsChange = this.handleTagsChange.bind(this);
         this.filterAndSortUsers = this.filterAndSortUsers.bind(this);
         this.handleMessageRequest = this.handleMessageRequest.bind(this);
-        this.handleMessageReject = this.handleMessageReject.bind(this);        
+        this.handleMessageReject = this.handleMessageReject.bind(this);       
+        this.handleClose = this.handleClose.bind(this); 
     }
 
     handleClose() {
-        this.setState({inChat: false, mentorUserName: '', mentorSocketId: ''})
+        this.setState({inChat: false, mentorUserName: '', mentorSocketId: '', showRating: true});
     }
 
     componentDidMount() {
-        this.props.socket.on('user list', activeUsers => {
+        this.props.service.getSocket().on('user list', activeUsers => {
             this.setState({users: activeUsers});
             this.filterAndSortUsers(this.state.tags);
         });
-        this.props.socket.on('request messages', reqMessages => {
+        this.props.service.getSocket().on('request messages', reqMessages => {
             this.setState({requestMessages: reqMessages});
         });
-        this.props.socket.on('notify accept', mentorSocketId => {
-            this.state.users.find(user => this.setState({mentorUserName: user.name}));
-            this.setState({inChat: true, mentorSocketId: mentorSocketId});            
+        this.props.service.getSocket().on('notify accept', mentorSocketId => {
+            var user = this.state.users.find(u => u.socketId === mentorSocketId);
+            //this.setState({mentorUserName: user.name})
+            this.setState({inChat: true, mentorSocketId: mentorSocketId, tagsToRate: user.profile.tags});            
         })
     }
 
@@ -52,13 +56,13 @@ class MainPage extends React.Component {
         } else {
             let usersFilteredByTag = this.state.users.filter(user => {
                 let intersectingTags = tags.filter(tag => {
-                    return user.tags.map(t => t.name).indexOf(tag) !== -1;
+                    return user.profile.tags.map(t => t.name).indexOf(tag) !== -1;
                 });
                 return intersectingTags.length !== 0;
             });
             sortedUsers = this.sortMentors(usersFilteredByTag, tags);
         }
-        sortedUsers = sortedUsers.filter(x => x.socketId !== this.props.socket.id); 
+        sortedUsers = sortedUsers.filter(x => x.socketId !== this.props.service.getSocket().id); 
         this.setState({filteredUsers: sortedUsers});
     }
 
@@ -86,7 +90,17 @@ class MainPage extends React.Component {
     }
 
     handleMessageRequest(user, reqMessage, topic) {
-        this.props.socket.emit('send request message', user.socketId, this.props.socket.id, reqMessage, topic);
+        this.props.service.getSocket().emit('send request message', user.socketId, this.props.service.getSocket().id, reqMessage, topic);
+    }
+    
+    rated = (rating) => {
+        this.props.service.rate(rating, this.state.mentorSocketId);
+    }
+
+    cancel = () => {
+        this.setState ({
+            showRating: false
+        });
     }
 
     render = () => {             
@@ -105,14 +119,16 @@ class MainPage extends React.Component {
             </div>
             <div className="col-lg-3">
                 <MessageRequests messages={this.state.requestMessages}
-                    handleMessageReject={this.handleMessageReject} socket={this.props.socket}/>
+                    handleMessageReject={this.handleMessageReject} service={this.props.service}/>
             </div>
             <Dialog
                 modal={true}
                 open={this.state.inChat}
                 >
-                <Chat socket={this.props.socket} receiver={{name: this.state.mentorUserName, id: this.state.mentorSocketId}} onClose={this.handleClose} />
+                <Chat service={this.props.service} receiver={{name: this.state.mentorUserName, id: this.state.mentorSocketId}} onClose={this.handleClose} />
+                
             </Dialog>
+            <Rating tags={ this.state.tagsToRate } show={ this.state.showRating } cancel={this.cancel} rated={this.rated} service={ this.props.service } receiver={{name: this.state.mentorUserName, id: this.state.mentorSocketId}} />
         </div>    
     }
 }

@@ -16,7 +16,7 @@ class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            socket: this.props.socket,
+            socket: this.props.service.getSocket(),
             msg: '',
             receiver: {},
             messages: []
@@ -45,7 +45,7 @@ class Chat extends React.Component {
     }
 
     sendMessage(msg){
-        this.props.socket.emit('private message', this.state.receiver.socketId, msg);
+        this.props.service.getSocket().emit('private message', this.state.receiver.socketId, msg);
         this.setState({messages: [...this.state.messages, new Message({id: 0, message: msg})], msg: ''});
     }
 

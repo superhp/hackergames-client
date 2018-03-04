@@ -87,9 +87,12 @@ class Login extends React.Component {
                         <TextField hintText="Username" value={this.state.username} onChange={this.changeUsername} floatingLabelText="Your username" />
                     </div>
                 </div>
-                <br />
-                <Tags updateTags={this.handleTagsChange} users={this.state.users} />
-
+                <br/>
+                <div className="row">
+                    <div className="col-md-12">
+                        <Tags updateTags={this.handleTagsChange} users={this.state.users} />
+                    </div>
+                </div>
                 <RaisedButton className="register-button" label="JOIN" onClick={this.register} primary={true} />
 
                 <a className='ui facebook fluid button cg-login-button' href={"https://learnfromme.azurewebsites.net/.auth/login/facebook?post_login_redirect_url=/"}>Login with Facebook</a>
