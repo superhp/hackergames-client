@@ -28,7 +28,10 @@ class Tags extends React.Component {
         // } else {
         //     return [].concat.apply([], suggestions.map(t => t.name)).filter(this.onlyUnique);
         // }
-        return ["Chef", "Vegan activist", "Pilot"]
+        return ["Chef", "Vegan activist", "Pilot", "Programmer", "Web Developer", "Doctor", 
+                "Lecturer", "Bitcoin Enthusiast", "Crypto currency specialist", "Proffesional crypto miner",
+                "Crypto kiddie", "Crypto broker", "Lawyer", "CEO", "CTO", "Blockchain pro", "Marketing director",
+                "Salesman", "Drag racer", "Mechanic", "Electrician", "Beer brewer", "Politician"]
     }
 
     componentWillReceiveProps(nextProps) {
