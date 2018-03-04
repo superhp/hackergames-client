@@ -79,6 +79,7 @@ class Chat extends React.Component {
                             }
                         }
                     }
+                    maxHeight={300}
                 />
                 <div className="row chat-footer">
                     <div className="col-md-11">

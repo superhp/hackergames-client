@@ -15,10 +15,12 @@ class MainPage extends React.Component {
         this.handleTagsChange = this.handleTagsChange.bind(this);
         this.filterAndSortUsers = this.filterAndSortUsers.bind(this);
         this.handleMessageRequest = this.handleMessageRequest.bind(this);
-        this.handleMessageReject = this.handleMessageReject.bind(this);        
+        this.handleMessageReject = this.handleMessageReject.bind(this);
+        this.handleClose = this.handleClose.bind(this);        
     }
 
-    handleClose() {
+    handleClose() {        
+        this.props.socket.emit('private message', this.state.mentorSocketId, '** ' + this.state.mentorUserName + ' has left **');
         this.setState({inChat: false, mentorUserName: '', mentorSocketId: ''})
     }
 
@@ -31,8 +33,8 @@ class MainPage extends React.Component {
             this.setState({requestMessages: reqMessages});
         });
         this.props.socket.on('notify accept', mentorSocketId => {
-            this.state.users.find(user => this.setState({mentorUserName: user.name}));
-            this.setState({inChat: true, mentorSocketId: mentorSocketId});            
+            var user = this.state.filteredUsers.find(user => user.socketId === mentorSocketId);            
+            this.setState({inChat: true, mentorSocketId: mentorSocketId, mentorUserName: user.profile.name});            
         })
     }
 
