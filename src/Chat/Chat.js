@@ -25,7 +25,14 @@ class Chat extends React.Component {
         this.changeMessage = this.changeMessage.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         
+    }
+
+    handleKeyPress = (event) => {
+        if(event.key == 'Enter'){
+            this.sendMessage(this.state.msg)
+        }
     }
 
     componentDidMount(){
@@ -83,7 +90,7 @@ class Chat extends React.Component {
                 />
                 <div className="row chat-footer">
                     <div className="col-md-11">
-                        <TextField hintText="Hint Text" fullWidth value={this.state.msg} onChange={this.changeMessage}/>
+                        <TextField hintText="Write a message..." fullWidth value={this.state.msg} onChange={this.changeMessage} onKeyPress={(e) => this.handleKeyPress(e)}/>
                     </div>
                     <div className="col-md-1">
                         <FlatButton

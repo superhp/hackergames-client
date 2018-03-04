@@ -12,7 +12,7 @@ class MainPage extends React.Component {
     constructor() {
         super();
 
-        this.state = { users: [], filteredUsers: [], tags: [], tagsToRate: [], requestMessages: requestMessages, inChat: false, mentorSocketId: '', mentorUserName: '', showRating: false };
+        this.state = { users: [], filteredUsers: [], tags: [], tagsToRate: [], requestMessages: [], inChat: false, mentorSocketId: '', mentorUserName: '', showRating: false };
 
         this.handleTagsChange = this.handleTagsChange.bind(this);
         this.filterAndSortUsers = this.filterAndSortUsers.bind(this);
@@ -24,7 +24,7 @@ class MainPage extends React.Component {
 
     handleClose() {
         this.setState({inChat: false, mentorUserName: '', mentorSocketId: '', showRating: true});
-        this.props.service.getSocket().emit('private message', this.state.mentorSocketId, '** ' + this.state.mentorUserName + ' has left **');     
+        this.props.service.getSocket().emit('private message', this.state.mentorSocketId, '** partner has left **');     
     }
 
     componentDidMount() {
