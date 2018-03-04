@@ -1,7 +1,7 @@
 import React from 'react';
 import Tags from '../Tags/tags';
 import Mentors from './Mentors.js';
-import { activeUsers, requestMessages } from '../data/data';
+import { activeUsers } from '../data/data';
 import MessageRequests from './MessageRequests';
 import Chat from '../Chat/Chat';
 import Dialog from 'material-ui/Dialog';
@@ -10,7 +10,7 @@ class MainPage extends React.Component {
 
     constructor() {
         super();
-        this.state = { users: [], filteredUsers: [], tags: [], requestMessages: requestMessages, inChat: false, mentorSocketId: '', mentorUserName: '' };
+        this.state = { users: [], filteredUsers: [], tags: [], requestMessages: [], inChat: false, mentorSocketId: '', mentorUserName: '' };
 
         this.handleTagsChange = this.handleTagsChange.bind(this);
         this.filterAndSortUsers = this.filterAndSortUsers.bind(this);
@@ -41,9 +41,8 @@ class MainPage extends React.Component {
         this.filterAndSortUsers(newTags);
     }
 
-    handleMessageReject(e, userName) {
-        let updatedMessages = this.state.requestMessages.filter(x => x.userName !== userName);
-        this.setState({requestMessages: updatedMessages})
+    handleMessageReject(e, requesterSocketId) {
+        this.props.socket.emit('reject message', this.props.socket.id, requesterSocketId);
     }
 
     filterAndSortUsers(tags) {
