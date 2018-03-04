@@ -39,12 +39,14 @@ export default class Mentors extends Component {
       height: '300px',
       dialogOpen: false,
       selectedUser: {},
-      requestMessage: ''
+      requestMessage: '',
+      topic: ''
     };
 
     this.handleMessageRequest = this.handleMessageRequest.bind(this);
     this.getTagColor = this.getTagColor.bind(this);
     this.onReqMessageChange = this.onReqMessageChange.bind(this);
+    this.onTopicChange = this.onTopicChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -63,13 +65,17 @@ export default class Mentors extends Component {
   };
 
   handleSubmit = () => {
-    this.props.handleMessageRequest(this.state.selectedUser, this.state.requestMessage);
+    this.props.handleMessageRequest(this.state.selectedUser, this.state.requestMessage, this.state.topic);
     this.setState({dialogOpen: false,
       requestMessage: ''});
   }
 
   onReqMessageChange(e) {
     this.setState({requestMessage: e.target.value})
+  }
+
+  onTopicChange(e) {
+    this.setState({topic: e.target.value});
   }
 
   render() {
@@ -112,11 +118,11 @@ export default class Mentors extends Component {
             showRowHover={this.state.showRowHover}
             stripedRows={this.state.stripedRows}
           >
-            {this.props.tableData.map( (row, index) => (
+            {this.props.tableData.map((row, index) => (
               <TableRow key={index}>
-                <TableRowColumn>{row.name}</TableRowColumn>
+                <TableRowColumn>{row.profile.name}</TableRowColumn>
                 <TableRowColumn>
-                  {row.tags.map((tag, ind) => <span className={"tag " + this.getTagColor(tag.name)} key={ind}><span className="rating">{tag.rating} 
+                  {row.profile.tags.map((tag, ind) => <span className={"tag " + this.getTagColor(tag.name)} key={ind}><span className="rating">{tag.rating} 
                     <FontIcon className="material-icons rating-star" color={yellow500}>star</FontIcon></span>{tag.name}</span>)}
                 </TableRowColumn>
                 <TableRowColumn>
@@ -142,13 +148,21 @@ export default class Mentors extends Component {
           open={this.state.dialogOpen}
         >
           <TextField
-            floatingLabelText="Present yourself. If you pitch good, the mentor may even talk to you."
+              floatingLabelText="Who are you?"
+              fullWidth={true}
+              value={this.state.topic}
+              onChange={this.onTopicChange}
+            />
+        
+          <TextField
+            floatingLabelText="What do you want to talk about?"
             multiLine={true}
             rows={2}
             fullWidth={true}
             value={this.state.requestMessage}
             onChange={this.onReqMessageChange}
           />
+          
         </Dialog>
       </div>
     );

@@ -48,7 +48,7 @@ class MessageRequests extends React.Component {
             return (
                 <ul>
                     {this.props.messages.map((msg, index) => {
-                            return <li>
+                            return <li key={index}>
                                 <Card>
                                     <CardHeader
                                         title={msg.userName}

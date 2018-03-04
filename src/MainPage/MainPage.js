@@ -77,12 +77,16 @@ class MainPage extends React.Component {
 
     hasTags(user, tags) {
         var tagNames = tags.map(t => t.name);
-        var found = user.tags.filter(t => tagNames.indexOf(t) > -1);
-        return found.length;
+        if (user.tags) {
+            var found = user.tags.filter(t => tagNames.indexOf(t) > -1);
+            return found.length;
+        } else {
+            return 0;
+        }
     }
 
-    handleMessageRequest(user, reqMessage) {
-        this.props.socket.emit('send request message', user.socketId, this.props.socket.id, reqMessage);
+    handleMessageRequest(user, reqMessage, topic) {
+        this.props.socket.emit('send request message', user.socketId, this.props.socket.id, reqMessage, topic);
     }
 
     render = () => {             
