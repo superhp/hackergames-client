@@ -108,13 +108,13 @@ class MainPage extends React.Component {
         return <div className="row">
             <div className="col-lg-8 col-lg-offset-1">
                 <div>
-                    <h1 className="bottom-margin-0">Interests</h1>
-                    <span>The things you somehow forgot.</span>
-                    <Tags updateTags={this.handleTagsChange} users={this.state.users} />
+                    <h1 className="bottom-margin-0">Professions</h1>
+                    <span>The people you want to learn from.</span>
+                    <Tags updateTags={this.handleTagsChange} users={this.state.users} placeholder={"Who do you want to talk to?"}/>
                 </div>
                 <div>
                     <h1 className="bottom-margin-0">Mentors</h1>
-                    <span>People who are willing to share.</span>
+                    <span>The specialists who are willing to share.</span>
                     <Mentors tableData={this.state.filteredUsers} selectedTags={this.state.tags} handleMessageRequest={this.handleMessageRequest}/>
                 </div>
             </div>

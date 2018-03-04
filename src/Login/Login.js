@@ -90,7 +90,7 @@ class Login extends React.Component {
                 <br/>
                 <div className="row">
                     <div className="col-md-12">
-                        <Tags updateTags={this.handleTagsChange} users={this.state.users} />
+                        <Tags updateTags={this.handleTagsChange} users={this.state.users} placeholder={"What is your occupation?"}/>
                     </div>
                 </div>
                 <RaisedButton className="register-button" label="JOIN" onClick={this.register} primary={true} />

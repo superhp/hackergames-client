@@ -112,7 +112,7 @@ export default class Mentors extends Component {
           >
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
-              <TableHeaderColumn>Tags</TableHeaderColumn>
+              <TableHeaderColumn>Professions</TableHeaderColumn>
               <TableHeaderColumn> </TableHeaderColumn>
             </TableRow>
           </TableHeader>

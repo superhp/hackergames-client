@@ -62,7 +62,7 @@ class App extends React.Component {
 
   render = () => {
     return <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-      <AppBar title="Learn from me" showMenuIconButton={ false } iconElementRight={ this.state.username ? <FlatButton onClick={ this.logout } label="Logout" /> : <FlatButton label="Login" />  } />
+      <AppBar title="Learn From Me" showMenuIconButton={ false } iconElementRight={ this.state.username ? <FlatButton onClick={ this.logout } label="Logout" /> : <FlatButton label="Login" />  } />
       
       <Switch>
         <Route exact path='/' render={routeProps => this.state.username ? <Redirect to="/users" /> : <Login {...routeProps} onLogin={ this.onLogin } service={ this.props.service } /> } />
