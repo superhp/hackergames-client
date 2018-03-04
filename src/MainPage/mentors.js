@@ -38,7 +38,9 @@ export default class Mentors extends Component {
       showCheckboxes: false,
       height: '300px',
       dialogOpen: false,
-      selectedUser: {},
+      selectedUser: {
+        profile: {name: ''}
+      },
       requestMessage: '',
       topic: ''
     };
@@ -144,7 +146,7 @@ export default class Mentors extends Component {
           </TableFooter>
         </Table>
         <Dialog
-          title={"Message request for " + this.state.selectedUser.name}
+          title={"Message request for " + (this.state.selectedUser.profile.name)}
           actions={actions}
           modal={true}
           open={this.state.dialogOpen}
