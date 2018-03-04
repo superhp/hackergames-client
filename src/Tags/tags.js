@@ -20,10 +20,15 @@ class Tags extends React.Component {
     }
 
     getSuggestions(users) {
-        var suggestionsLists = users.map(u => u.tags);
-        var suggestions = [].concat.apply([], suggestionsLists);
-
-        return [].concat.apply([], suggestions.map(t => t.name)).filter(this.onlyUnique);
+        // var suggestionsLists = users.map(u => u.tags);
+        // var suggestions = [].concat.apply([], suggestionsLists);
+        // var suggestionsExist = suggestions.length && suggestions.every(x => x && x.hasOwnProperty('name'));
+        // if (suggestionsExist) {
+        //     return [];
+        // } else {
+        //     return [].concat.apply([], suggestions.map(t => t.name)).filter(this.onlyUnique);
+        // }
+        return ["Chef", "Vegan activist", "Pilot"]
     }
 
     componentWillReceiveProps(nextProps) {

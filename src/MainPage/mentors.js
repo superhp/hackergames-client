@@ -112,11 +112,11 @@ export default class Mentors extends Component {
             showRowHover={this.state.showRowHover}
             stripedRows={this.state.stripedRows}
           >
-            {this.props.tableData.map( (row, index) => (
+            {this.props.tableData.map((row, index) => (
               <TableRow key={index}>
-                <TableRowColumn>{row.name}</TableRowColumn>
+                <TableRowColumn>{row.profile.name}</TableRowColumn>
                 <TableRowColumn>
-                  {row.tags.map((tag, ind) => <span className={"tag " + this.getTagColor(tag.name)} key={ind}><span className="rating">{tag.rating} 
+                  {row.profile.tags.map((tag, ind) => <span className={"tag " + this.getTagColor(tag.name)} key={ind}><span className="rating">{tag.rating} 
                     <FontIcon className="material-icons rating-star" color={yellow500}>star</FontIcon></span>{tag.name}</span>)}
                 </TableRowColumn>
                 <TableRowColumn>
