@@ -47,7 +47,7 @@ class MainPage extends React.Component {
     }
 
     handleMessageReject(e, requesterSocketId) {
-        this.props.service.getSocket().emit('reject message', this.props.socket.id, requesterSocketId);
+        this.props.service.getSocket().emit('reject message', this.props.service.getSocket().id, requesterSocketId);
     }
 
     filterAndSortUsers(tags) {
