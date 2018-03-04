@@ -161,7 +161,7 @@ class ReactStars extends Component {
       value: value,
       stars: this.getStars(index)
     })
-    this.props.onChange(value, this.tag)
+    this.props.onChange(value, this.state.tag)
   }
 
   renderHalfStarStyleElement() {
