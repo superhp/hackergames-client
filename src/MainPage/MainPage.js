@@ -85,8 +85,8 @@ class MainPage extends React.Component {
         }
     }
 
-    handleMessageRequest(user, reqMessage) {
-        this.props.socket.emit('send request message', user.socketId, this.props.socket.id, reqMessage);
+    handleMessageRequest(user, reqMessage, topic) {
+        this.props.socket.emit('send request message', user.socketId, this.props.socket.id, reqMessage, topic);
     }
 
     render = () => {             
