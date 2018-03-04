@@ -58,6 +58,7 @@ class MainPage extends React.Component {
             });
             sortedUsers = this.sortMentors(usersFilteredByTag, tags);
         }
+        sortedUsers = sortedUsers.filter(x => x.socketId !== this.props.socket.id); 
         this.setState({filteredUsers: sortedUsers});
     }
 
