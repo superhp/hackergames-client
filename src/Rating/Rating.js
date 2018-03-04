@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactStars from 'react-stars'
+import ReactStars from '../ReactStar'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -7,7 +7,7 @@ class Rating extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { ratings : [] };
+        this.state = { ratings : {} };
         this.ratingChanged = this.ratingChanged.bind(this);
     }
 
@@ -29,24 +29,27 @@ class Rating extends React.Component {
         // })
     }
 
-    ratingChanged(rating) {
-        console.log(rating);
-        this.props.rated(rating);
-        this.setState({
-            openModal: false
-        });
+    ratingChanged(rating, tagName) {
+        //debugger;
+
+        this.state.ratings[tagName] = rating;
+
+        
+
+        // this.props.rated(rating);
+        // this.setState({
+        //     openModal: false
+        // });
     }
 
     handleClose = () => {
-        this.setState({
-            openModal: false
-        });
+        this.props.closeRating();
     }
 
     handleSubmit = () => {
-        this.setState({
-            openModal: false
-        });
+        debugger;
+        console.log(this.state.ratings);
+        this.props.rated(this.state.ratings);
     }
 
     render = () => {
@@ -67,7 +70,7 @@ class Rating extends React.Component {
         <div className="row">
             <div className="col-md-6" style={{textAlign: 'right'}}>{tag.name}</div>
             <div style={{marginTop: '-12px'}} className="col-md-6">
-                <ReactStars count={5} onChange={this.ratingChanged} size={32} color2={'#ffd700'} />
+                <ReactStars count={5} tag={tag.name} onChange={this.ratingChanged} size={32} color2={'#ffd700'} />
             </div>
         </div>));
 

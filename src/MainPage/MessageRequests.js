@@ -27,8 +27,9 @@ class MessageRequests extends React.Component {
 
     handleClose = () => {
         this.props.service.getSocket().emit('private message', this.state.acceptedMessage.socketId, '** partner has left **');
+
         this.setState({inChat: false, acceptedMessage: {}});
-        this.props.service.getSocket().emit('reject message', this.props.socket.id, this.state.acceptedMessage.socketId);
+        this.props.service.getSocket().emit('reject message', this.props.service.getSocket().id, this.state.acceptedMessage.socketId);
     };
 
     render = () => {

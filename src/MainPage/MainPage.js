@@ -20,11 +20,13 @@ class MainPage extends React.Component {
 
         this.handleMessageReject = this.handleMessageReject.bind(this);       
         this.handleClose = this.handleClose.bind(this); 
+
+        this.rated = this.rated.bind(this);
     }
 
     handleClose() {
-        this.setState({inChat: false, mentorUserName: '', mentorSocketId: '', showRating: true});
         this.props.service.getSocket().emit('private message', this.state.mentorSocketId, '** partner has left **');     
+        this.setState({inChat: false, mentorUserName: '', showRating: true});
     }
 
     componentDidMount() {
@@ -96,9 +98,14 @@ class MainPage extends React.Component {
     
     rated = (rating) => {
         this.props.service.rate(rating, this.state.mentorSocketId);
+
+        this.setState({
+            mentorSocketId: "",
+            showRating: false
+        });
     }
 
-    cancel = () => {
+    closeRating = () => {
         this.setState ({
             showRating: false
         });
@@ -129,7 +136,7 @@ class MainPage extends React.Component {
                 <Chat service={this.props.service} receiver={{name: this.state.mentorUserName, id: this.state.mentorSocketId}} onClose={this.handleClose} />
                 
             </Dialog>
-            <Rating tags={ this.state.tagsToRate } show={ this.state.showRating } cancel={this.cancel} rated={this.rated} service={ this.props.service } receiver={{name: this.state.mentorUserName, id: this.state.mentorSocketId}} />
+            <Rating closeRating={ this.closeRating } tags={ this.state.tagsToRate } show={ this.state.showRating } rated={this.rated} service={ this.props.service } receiver={{name: this.state.mentorUserName, id: this.state.mentorSocketId}} />
         </div>    
     }
 }

@@ -34,6 +34,7 @@ class ReactStars extends Component {
 
     super(props)
 
+    debugger;
     // set defaults
 
     props = Object.assign({}, props)
@@ -41,7 +42,7 @@ class ReactStars extends Component {
     this.state = {
       uniqueness: (Math.random() + '').replace('.', ''),
       value: props.value || 0,
-	  tag: props.tag || null, 
+	    tag: props.tag || null, 
       stars: [],
       halfStar: {
         at: Math.floor(props.value),
