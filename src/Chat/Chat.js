@@ -24,12 +24,20 @@ class Chat extends React.Component {
 
         this.changeMessage = this.changeMessage.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
-
-        this.state.socket.on('private message', (msg) => this.setState({messages: [...this.state.messages, new Message({id: 1, message: msg})]}))
+        this.componentDidMount = this.componentDidMount.bind(this);
+        
     }
 
     componentDidMount(){
         this.setState({ receiver: {name: this.props.receiver.name, socketId: this.props.receiver.id}})
+        this.state.socket.on('private message', (msg) => {
+            var tempMessages = [];
+            this.state.messages.forEach(x => {
+                tempMessages.push(x);
+            });
+            tempMessages.push(new Message({id: 1, message: msg.message}));//[...tempMessages, new Message({id: 0, message: msg})];
+            this.setState({messages: tempMessages});
+        });
     }
 
     changeMessage(e) {
